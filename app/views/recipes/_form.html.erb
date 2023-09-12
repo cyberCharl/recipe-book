@@ -1,0 +1,75 @@
+<%= form_with(model: recipe, data: {
+  controller: "nested-form",
+  nested_form_wrapper_selector_value: '.nested-form-wrapper'
+}) do |form| %>
+  <% if recipe.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(recipe.errors.count, "error") %> prohibited this recipe from being saved:</h2>
+
+      <ul>
+        <% recipe.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :name, style: "display: block" %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div>
+    <%= form.label :duration, style: "display: block" %>
+    <%= form.text_field :duration %>
+  </div>
+
+  <div>
+    <%= form.label :servings, style: "display: block" %>
+    <%= form.number_field :servings %>
+  </div>
+
+  <div>
+    <%= form.label :description, style: "display: block" %>
+    <%= form.text_area :description %>
+  </div>
+
+<%# Custom Logic Start%>
+<%# Ingredients%>
+<template data-nested-form-target="template">
+    <%= form.fields_for :ingredients, Ingredient.new, child_index: 'NEW_RECORD' do |ingredient_fields| %>
+      <%= render "ingredient_form", f: ingredient_fields %>
+    <% end %>
+  </template>
+
+  <%= form.fields_for :ingredients do |ingredient_fields| %>
+    <%= render "ingredient_form", f: ingredient_fields %>
+  <% end %>
+
+  <div data-nested-form-target="target"></div>
+
+  <button type="button" data-action="nested-form#add">Add ingredient</button>
+
+<%# Instructions%>
+<template data-nested-form-target="template">
+    <%= form.fields_for :instructions, Instruction.new, child_index: 'NEW_RECORD' do |instruction_fields| %>
+      <%= render "instruction_form", f: instruction_fields %>
+    <% end %>
+  </template>
+
+  <%= form.fields_for :instructions do |instruction_fields| %>
+    <%= render "instruction_form", f: instruction_fields %>
+  <% end %>
+
+  <div data-nested-form-target="target"></div>
+
+  <button type="button" data-action="nested-form#add">Add instruction</button>
+
+
+
+<%# Custom Logic End%>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
