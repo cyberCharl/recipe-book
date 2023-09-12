@@ -1,11 +1,28 @@
-# README
+# Recipe Book
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Website built in Ruby to record and display recipes I enjoy cooking. 
 
-Things you may want to cover:
+### TODO:
+- Fix "Add instruction" button when creating new recipe
+- Imporve frontend 
+- Add pdf upload support to add new recipes
 
-* Ruby version
+### Using the website locally
+
+- Ensure Ruby and Ruby on Rails are installed correctly
+- Run the following commands:
+```
+git clone https://github.com/cyberCharl/recipe-book
+cd recipe-book
+bundle install
+rails s
+```
+
+- After running the above commands, open localhost:3000 in a browser
+
+### Things to add to the ReadMe:
+
+* Ruby version ~> ruby 3.1
 
 * System dependencies
 
@@ -20,5 +37,3 @@ Things you may want to cover:
 * Services (job queues, cache servers, search engines, etc.)
 
 * Deployment instructions
-
-* ...
